@@ -15,3 +15,13 @@ by the langevin function m = 1/h - coth(h). Since the langevin function is not a
 the entropy as a funciton only of magnetization, we proceed to concatenated values of 'm' with values of entropy, 
 that is, choosing a value of h, we can find a value of m, and a value of entropy, relating the last two, and creating
 a function entropy S of m.
+
+The program works as it follows:
+Each phase known in the model has it's own file that describes the functional and all the process of the minimization
+of it. The entropy function is apart, since all functionals use it. the main.cpp file will run the process of minimization
+of each one of the functionals in a loop, varing some thermodynamical parameter to create an interprolated funciton of 
+free energy for each of the phases.
+
+The easiest way to run the program is to put all the functionals and entropy .cpp and .hpp files in the same folder, and run in the 
+terminal:
+g++ main.cpp -lm -O3 alglib/*.cpp functionals_folder/*.cpp
