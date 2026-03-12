@@ -1,27 +1,27 @@
-# Phase diagram of Dziyaloshinskii-Moriya model with exchange interaction 
+# Phase Diagram of Dzyaloshinskii-Moriya Model with Exchange Interaction
 
-The program discretize three functionals, each of it relative to a phisical phase of a 2-D material that has
-Exchange and Dziyaloshinskii-Moriya interaction. After the discretization, each phase is minimized with respect
-to thermodynamics parameters (Temperature (T), external magnetic field (H) and uniaxial anisotropy (A)). The value
-of free energy after the minimization process is storage in a file, and the next round of minimization utilizes the
-later results as the initial condition. 
+This program discretizes three functionals, each corresponding to a physical phase of a 2D material with **Exchange** and **Dzyaloshinskii-Moriya (DM) interactions**. After discretization, each phase is minimized with respect to thermodynamic parameters: **Temperature (T)**, **external magnetic field (H)**, and **uniaxial anisotropy (A)**. The value of the free energy after the minimization process is stored in a file, and the next round of minimization uses these results as the initial condition.
 
-The minimization process was made using the external library 'alglib', more precisely with the method of minimization
-with non-linear constrains. 
+The minimization is performed using the external library **alglib**, specifically with the method for minimization under **non-linear constraints**.
 
-The entropy file consists of an interpolation of a set of points that relates entropy, mean magnetization 'm' and a 
-variational parameter 'h'. Origanally, the entropy is a funcition of 'h' and 'm', and these parameters are related 
-by the langevin function m = 1/h - coth(h). Since the langevin function is not analitically invertible, and we want
-the entropy as a funciton only of magnetization, we proceed to concatenated values of 'm' with values of entropy, 
-that is, choosing a value of h, we can find a value of m, and a value of entropy, relating the last two, and creating
-a function entropy S of m.
+## Entropy File
 
-The program works as it follows:
-Each phase known in the model has it's own file that describes the functional and all the process of the minimization
-of it. The entropy function is apart, since all functionals use it. the main.cpp file will run the process of minimization
-of each one of the functionals in a loop, varing some thermodynamical parameter to create an interprolated funciton of 
-free energy for each of the phases.
+The entropy file consists of an interpolation of a set of points that relate **entropy**, **mean magnetization (`m`)**, and a **variational parameter (`h`)**. Originally, the entropy is a function of `h` and `m`, and these parameters are related by the Langevin function:
 
-The easiest way to run the program is to put all the functionals and entropy .cpp and .hpp files in the same folder, and run in the 
-terminal:
+$$m = \frac{1}{h} - \mathrm{coth}(h)$$
+
+Since the Langevin function is not analytically invertible and we want the entropy as a function only of magnetization, we proceed by concatenating values of `m` with corresponding entropy values. That is, for a chosen value of `h`, we obtain a value of `m` and the corresponding entropy, creating a function **S(m)** that expresses entropy solely as a function of magnetization.
+
+## Program Structure
+
+Each phase in the model has its own file describing its functional and the entire minimization process. The entropy function is separate, as it is used by all functionals. The `main.cpp` file runs the minimization process for each functional in a loop, varying certain thermodynamic parameters to create an **interpolated function of free energy** for each phase.
+
+## Running the Program
+
+The easiest way to run the program is to place all **functional** and **entropy `.cpp` and `.hpp` files** in the same folder, and compile with:
+
+```bash
 g++ main.cpp -lm -O3 alglib/*.cpp functionals_folder/*.cpp
+```
+
+This will compile the program and prepare it to execute the minimization and generate the phase diagram data.
